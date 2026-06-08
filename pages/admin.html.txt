@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN PANEL - SCP DATABASE</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="../images/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        .admin-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .admin-panel {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            width: 100%;
+            max-width: 720px;
+            padding: 2rem;
+            border-radius: 0;
+        }
+
+        .admin-panel h1 {
+            font-family: 'VT323', monospace;
+            font-size: 2rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .admin-panel .subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        .admin-panel .divider {
+            border: none;
+            border-top: 1px solid var(--border-color);
+            margin: 1.5rem 0;
+        }
+
+        .login-form, .scp-form { display: none; }
+        .login-form.active, .scp-form.active { display: block; }
+
+        .login-form {
+            max-width: 360px;
+            margin: 0 auto;
+        }
+
+        .login-form .input-group {
+            margin-bottom: 1rem;
+        }
+
+        .login-form .input-group label {
+            display: block;
+            font-family: 'VT323', monospace;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-form .input-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .login-form .input-group input:focus {
+            border-color: var(--accent);
+        }
+
+        .login-error {
+            color: var(--keter-color);
+            font-family: 'VT323', monospace;
+            font-size: 1rem;
+            text-align: center;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .scp-form .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .scp-form .input-group {
+            margin-bottom: 1rem;
+        }
+
+        .scp-form .input-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .scp-form .input-group label {
+            display: block;
+            font-family: 'VT323', monospace;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.4rem;
+        }
+
+        .scp-form .input-group input,
+        .scp-form .input-group select,
+        .scp-form .input-group textarea {
+            width: 100%;
+            padding: 0.65rem 0.9rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .scp-form .input-group input:focus,
+        .scp-form .input-group select:focus,
+        .scp-form .input-group textarea:focus {
+            border-color: var(--accent);
+        }
+
+        .scp-form .input-group select {
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23888'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.9rem center;
+            padding-right: 2rem;
+        }
+
+        .scp-form .input-group select option {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .scp-form .input-group textarea {
+            min-height: 120px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .image-upload-wrapper {
+            border: 2px dashed var(--border-color);
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+            position: relative;
+        }
+
+        .image-upload-wrapper:hover {
+            border-color: var(--accent);
+            background: rgba(183, 28, 28, 0.05);
+        }
+
+        .image-upload-wrapper .upload-icon {
+            font-size: 2rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .image-upload-wrapper .upload-text {
+            font-family: 'VT323', monospace;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .image-upload-wrapper .upload-hint {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 0.3rem;
+        }
+
+        .image-preview {
+            max-width: 100%;
+            max-height: 300px;
+            display: none;
+            margin-top: 1rem;
+            border: 1px solid var(--border-color);
+            image-rendering: pixelated;
+        }
+
+        .image-preview.show { display: block; }
+
+        .image-preview-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .image-preview-container .remove-image {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 24px;
+            height: 24px;
+            background: var(--accent);
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            line-height: 24px;
+            text-align: center;
+            display: none;
+        }
+
+        .image-preview-container .remove-image.show { display: block; }
+
+        .btn-admin {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            font-family: 'VT323', monospace;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            border: 1px solid var(--accent);
+            background: var(--accent);
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+            width: 100%;
+        }
+
+        .btn-admin:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+        }
+
+        .btn-admin:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-admin-secondary {
+            background: transparent;
+            border-color: var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        .btn-admin-secondary:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--text-muted);
+            color: var(--text-primary);
+        }
+
+        .form-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            border: 1px solid var(--safe-color);
+            background: rgba(76, 175, 80, 0.08);
+            margin-top: 1rem;
+        }
+
+        .success-message.show { display: block; }
+
+        .success-message .success-icon {
+            font-size: 2.5rem;
+            color: var(--safe-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .success-message h2 {
+            font-family: 'VT323', monospace;
+            font-size: 1.5rem;
+            color: var(--safe-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .success-message p {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .success-message .btn-admin {
+            width: auto;
+            display: inline-block;
+        }
+
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .loading-spinner.show { display: block; }
+
+        .loading-spinner .spinner {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            border: 2px solid var(--border-color);
+            border-top-color: var(--accent);
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .password-hint {
+            font-family: 'VT323', monospace;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .scp-form .form-row {
+                grid-template-columns: 1fr;
+            }
+            .form-actions {
+                grid-template-columns: 1fr;
+            }
+            .admin-panel {
+                padding: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="../images/logo.png" alt="SCP Foundation Logo" class="logo-img logo-pulse">
+            <h1>SCP DATABASE</h1>
+        </div>
+        <nav class="nav">
+            <a href="../index.html">Home</a>
+            <a href="safe.html">Safe</a>
+            <a href="euclid.html">Euclid</a>
+            <a href="keter.html">Keter</a>
+            <a href="thaumiel.html">Thaumiel</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="admin.html" class="active">Admin</a>
+        </nav>
+    </header>
+
+    <main class="main admin-wrapper">
+        <div class="admin-panel fade-in-element">
+            <h1>▐▌ ADMIN PANEL ▐▌</h1>
+            <div class="subtitle">SCP Database Management System — Clearance Level 5</div>
+
+            <div id="loginForm" class="login-form active">
+                <div class="input-group">
+                    <label>[LOCK] Access Code</label>
+                    <input type="password" id="passwordInput" placeholder="Enter security password..." autocomplete="new-password">
+                </div>
+                <button class="btn-admin" id="loginBtn" onclick="verifyPassword()">Authenticate</button>
+                <div class="login-error" id="loginError">INVALID ACCESS CODE — ACCESS DENIED</div>
+                <div class="password-hint">[ CLASSIFIED DATABASE — AUTHORIZED PERSONNEL ONLY ]</div>
+            </div>
+
+            <div id="scpForm" class="scp-form">
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>SCP Number</label>
+                        <input type="text" id="scpNumber" placeholder="e.g. 173" autocomplete="off">
+                    </div>
+                    <div class="input-group">
+                        <label>Object Class</label>
+                        <select id="objectClass">
+                            <option value="Safe">Safe</option>
+                            <option value="Euclid" selected>Euclid</option>
+                            <option value="Keter">Keter</option>
+                            <option value="Thaumiel">Thaumiel</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group full">
+                    <label>Title</label>
+                    <input type="text" id="title" placeholder="e.g. The Sculpture" autocomplete="off">
+                </div>
+
+                <div class="input-group full">
+                    <label>Containment Procedures</label>
+                    <textarea id="containmentProcedures" placeholder="Describe the containment procedures for this SCP..."></textarea>
+                </div>
+
+                <div class="input-group full">
+                    <label>Description</label>
+                    <textarea id="description" placeholder="Describe the object, its properties, and any relevant history..." style="min-height: 180px;"></textarea>
+                </div>
+
+                <div class="input-group full">
+                    <label>Object Image</label>
+                    <div class="image-upload-wrapper" id="imageUploadBox" onclick="document.getElementById('imageInput').click()">
+                        <div class="upload-icon">[ + ]</div>
+                        <div class="upload-text">Click to upload image</div>
+                        <div class="upload-hint">Supported: JPG, PNG, GIF, WebP — Max 10MB</div>
+                    </div>
+                    <input type="file" id="imageInput" accept=".jpg,.jpeg,.png,.gif,.webp" style="display:none" onchange="previewImage(event)">
+                    <div class="image-preview-container" id="previewContainer">
+                        <button class="remove-image" id="removeImageBtn" onclick="removeImage()">X</button>
+                        <img class="image-preview" id="imagePreview" alt="Preview">
+                    </div>
+                </div>
+
+                <div class="loading-spinner" id="loadingSpinner">
+                    <div class="spinner"></div>
+                    <p style="font-family:'VT323',monospace;color:var(--text-muted);margin-top:1rem;">GENERATING SCP FILE...</p>
+                </div>
+
+                <div class="success-message" id="successMessage">
+                    <div class="success-icon">[OK]</div>
+                    <h2>SCP Created Successfully</h2>
+                    <p id="successText">File generated.</p>
+                    <div class="form-actions">
+                        <button class="btn-admin" id="viewScpBtn" onclick="viewScp()">View SCP File</button>
+                        <button class="btn-admin btn-admin-secondary" onclick="resetForm()">Create Another</button>
+                    </div>
+                </div>
+
+                <div class="form-actions" id="formActions">
+                    <button class="btn-admin" id="submitBtn" onclick="createScp()">[ Generate SCP File ]</button>
+                    <button class="btn-admin btn-admin-secondary" onclick="resetForm()">Clear Form</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="logo-container">
+                <img src="../images/logo.png" alt="SCP Foundation Logo" class="logo-img" style="height: 24px;">
+            </div>
+            <p>&copy; 2026 SCP DATABASE. All classified information. Level 4 clearance required.</p>
+            <div class="footer-links">
+                <a href="#">Security Notice</a>
+                <a href="#">Usage Guidelines</a>
+                <a href="#">FOIA Requests</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let lastCreatedScp = null;
+        let selectedFile = null;
+
+        function verifyPassword() {
+            const password = document.getElementById('passwordInput').value;
+            const btn = document.getElementById('loginBtn');
+            const error = document.getElementById('loginError');
+
+            btn.disabled = true;
+            btn.textContent = 'Authenticating...';
+            error.style.display = 'none';
+
+            fetch('/api/verify-password', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('loginForm').classList.remove('active');
+                    document.getElementById('scpForm').classList.add('active');
+                } else {
+                    error.style.display = 'block';
+                    btn.disabled = false;
+                    btn.textContent = 'Authenticate';
+                }
+            })
+            .catch(() => {
+                error.textContent = 'CONNECTION ERROR — SERVER OFFLINE';
+                error.style.display = 'block';
+                btn.disabled = false;
+                btn.textContent = 'Authenticate';
+            });
+        }
+
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            selectedFile = file;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const preview = document.getElementById('imagePreview');
+                const container = document.getElementById('previewContainer');
+                const removeBtn = document.getElementById('removeImageBtn');
+                const uploadBox = document.getElementById('imageUploadBox');
+
+                preview.src = e.target.result;
+                preview.classList.add('show');
+                removeBtn.classList.add('show');
+                uploadBox.style.borderColor = 'var(--safe-color)';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function removeImage() {
+            selectedFile = null;
+            document.getElementById('imageInput').value = '';
+            document.getElementById('imagePreview').classList.remove('show');
+            document.getElementById('removeImageBtn').classList.remove('show');
+            document.getElementById('imageUploadBox').style.borderColor = '';
+        }
+
+        function createScp() {
+            const scpNumber = document.getElementById('scpNumber').value.trim();
+            const title = document.getElementById('title').value.trim();
+            const objectClass = document.getElementById('objectClass').value;
+            const containmentProcedures = document.getElementById('containmentProcedures').value.trim();
+            const description = document.getElementById('description').value.trim();
+
+            if (!scpNumber || !title || !containmentProcedures || !description) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            if (!/^[a-zA-Z0-9-]+$/.test(scpNumber)) {
+                alert('SCP Number can only contain letters, numbers, and hyphens.');
+                return;
+            }
+
+            document.getElementById('formActions').style.display = 'none';
+            document.getElementById('successMessage').classList.remove('show');
+            document.getElementById('loadingSpinner').classList.add('show');
+
+            const formData = new FormData();
+            formData.append('password', document.getElementById('passwordInput').value);
+            formData.append('scpNumber', scpNumber);
+            formData.append('title', title);
+            formData.append('objectClass', objectClass);
+            formData.append('containmentProcedures', containmentProcedures);
+            formData.append('description', description);
+            if (selectedFile) {
+                formData.append('image', selectedFile);
+            }
+
+            fetch('/api/create-scp', {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('loadingSpinner').classList.remove('show');
+                if (data.success) {
+                    lastCreatedScp = data;
+                    document.getElementById('successText').textContent =
+                        `SCP-${data.scpNumber} file generated at ${data.filePath}`;
+                    document.getElementById('successMessage').classList.add('show');
+                    document.getElementById('viewScpBtn').onclick = function() {
+                        window.open(data.filePath, '_blank');
+                    };
+                } else {
+                    document.getElementById('formActions').style.display = 'grid';
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(() => {
+                document.getElementById('loadingSpinner').classList.remove('show');
+                document.getElementById('formActions').style.display = 'grid';
+                alert('Connection error. Is the server running?');
+            });
+        }
+
+        function resetForm() {
+            document.getElementById('scpNumber').value = '';
+            document.getElementById('title').value = '';
+            document.getElementById('objectClass').value = 'Euclid';
+            document.getElementById('containmentProcedures').value = '';
+            document.getElementById('description').value = '';
+            removeImage();
+            document.getElementById('formActions').style.display = 'grid';
+            document.getElementById('successMessage').classList.remove('show');
+            document.getElementById('loadingSpinner').classList.remove('show');
+            lastCreatedScp = null;
+        }
+
+        window.addEventListener('load', function() {
+            document.getElementById('passwordInput').value = '';
+        });
+
+        window.addEventListener('pageshow', function() {
+            document.getElementById('passwordInput').value = '';
+        });
+
+        document.getElementById('passwordInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') verifyPassword();
+        });
+
+        document.getElementById('imageUploadBox').addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.style.borderColor = 'var(--accent)';
+            this.style.background = 'rgba(183, 28, 28, 0.1)';
+        });
+
+        document.getElementById('imageUploadBox').addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            this.style.borderColor = '';
+            this.style.background = '';
+        });
+
+        document.getElementById('imageUploadBox').addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.style.borderColor = '';
+            this.style.background = '';
+            const file = e.dataTransfer.files[0];
+            if (file) {
+                document.getElementById('imageInput').files = e.dataTransfer.files;
+                previewImage({ target: { files: [file] } });
+            }
+        });
+    </script>
+</body>
+</html>

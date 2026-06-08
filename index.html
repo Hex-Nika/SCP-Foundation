@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCP DATABASE - Secure Contain Protect</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="images/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=VT323&display=swap" rel="stylesheet">
+</head>
+<body>
+    <button class="back-button" onclick="window.history.back()" title="Voltar">
+        ← Voltar
+    </button>
+    <header class="header">
+        <div class="logo">
+            <img src="images/logo.png" alt="SCP Foundation Logo" class="logo-img logo-pulse">
+            <h1>SCP DATABASE</h1>
+        </div>
+        <nav class="nav">
+            <a href="index.html" class="active">Home</a>
+            <a href="pages/safe.html">Safe</a>
+            <a href="pages/euclid.html">Euclid</a>
+            <a href="pages/keter.html">Keter</a>
+            <a href="pages/thaumiel.html">Thaumiel</a>
+            <a href="pages/about.html">About</a>
+            <a href="pages/contact.html">Contact</a>
+            <a href="pages/admin.html">Admin</a>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="warning-banner fade-in-element delay-1">
+            <p>WARNING: THE FOUNDATION DATABASE IS CLASSIFIED</p>
+            <div class="sub">Unauthorized personnel will be tracked, located, and detained</div>
+        </div>
+        <section class="section">
+            <div class="section-header">
+                <h2>Welcome, Agent</h2>
+                <div class="section-actions">
+                    <a href="pages/safe.html" class="btn">Browse Safe Class</a>
+                    <a href="pages/euclid.html" class="btn btn-secondary">Browse Euclid Class</a>
+                </div>
+            </div>
+            <p class="lead">
+                This is a secure archive of anomalous objects, entities, and phenomena requiring Special Containment Procedures.
+                Access is restricted to personnel with Level 2 clearance or higher.
+            </p>
+            <div class="card-grid">
+                <a href="pages/safe.html" class="card hover-lift">
+                    <div class="card-header">
+                        <div class="card-number">Safe</div>
+                        <div class="card-tag card-tag-safe">SAFE</div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Easily Contained Anomalies</h3>
+                        <p>SCPs that are sufficiently understood and pose minimal threat when proper protocols are followed.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span>View Category</span>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="btn-icon">
+                            <path d="M6 18l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </a>
+                <a href="pages/euclid.html" class="card hover-lift">
+                    <div class="card-header">
+                        <div class="card-number">Euclid</div>
+                        <div class="card-tag card-tag-euclid">EUCLID</div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Moderate Containment Difficulty</h3>
+                        <p>SCPs that require more resources to contain or where procedures aren't always reliable.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span>View Category</span>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="btn-icon">
+                            <path d="M6 18l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </a>
+                <a href="pages/keter.html" class="card hover-lift">
+                    <div class="card-header">
+                        <div class="card-number">Keter</div>
+                        <div class="card-tag card-tag-keter">KETER</div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Extreme Containment Difficulty</h3>
+                        <p>SCPs that are exceedingly difficult to contain consistently or reliably.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span>View Category</span>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="btn-icon">
+                            <path d="M6 18l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </a>
+                <a href="pages/thaumiel.html" class="card hover-lift">
+                    <div class="card-header">
+                        <div class="card-number">Thaumiel</div>
+                        <div class="card-tag card-tag-thaumiel">THAUMIEL</div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Foundation Utilized Anomalies</h3>
+                        <p>SCPs used by the Foundation to actively contain other SCPs. Highly classified.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span>View Category</span>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="btn-icon">
+                            <path d="M6 18l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <h2>Recently Archived SCPs</h2>
+                <div class="section-actions">
+                    <a href="pages/safe.html" class="btn">View All</a>
+                </div>
+            </div>
+            <div class="card-grid">
+                <a href="pages/scp/173.html" class="card hover-lift">
+                    <div class="card-header">
+                        <div class="card-number">SCP-173</div>
+                        <div class="card-tag card-tag-euclid">EUCLID</div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">The Sculpture</h3>
+                        <p>An animate concrete construct capable of moving at high speed and causing severe blunt force trauma.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span>Read File</span>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="btn-icon">
+                            <path d="M6 18l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </a>
+                <a href="pages/scp/049.html" class="card hover-lift">
+                    <div class="card-header">
+                        <div class="card-number">SCP-049</div>
+                        <div class="card-tag card-tag-euclid">EUCLID</div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Plague Doctor</h3>
+                        <p>A humanoid entity resembling a medieval plague doctor that claims to cure "pestilence".</p>
+                    </div>
+                    <div class="card-footer">
+                        <span>Read File</span>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="btn-icon">
+                            <path d="M6 18l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </a>
+                <a href="pages/scp/096.html" class="card hover-lift">
+                    <div class="card-header">
+                        <div class="card-number">SCP-096</div>
+                        <div class="card-tag card-tag-euclid">EUCLID</div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">The Shy Guy</h3>
+                        <p>A humanoid creature that becomes extremely distressed when viewed by another person.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span>Read File</span>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="btn-icon">
+                            <path d="M6 18l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </a>
+                <a href="pages/scp/682.html" class="card hover-lift">
+                    <div class="card-header">
+                        <div class="card-number">SCP-682</div>
+                        <div class="card-tag card-tag-keter">KETER</div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Hard-to-Destroy Reptile</h3>
+                        <p>A large, reptile-like entity of unknown origin with extreme regenerative capabilities.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span>Read File</span>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="btn-icon">
+                            <path d="M6 18l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </a>
+                <a href="pages/scp/999.html" class="card hover-lift">
+                    <div class="card-header">
+                        <div class="card-number">SCP-999</div>
+                        <div class="card-tag card-tag-safe">SAFE</div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">The Tickle Monster</h3>
+                        <p>An amorphous slime mold that induces euphoria and laughter in humans upon contact.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span>Read File</span>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="btn-icon">
+                            <path d="M6 18l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </a>
+                <a href="pages/scp/914.html" class="card hover-lift">
+                    <div class="card-header">
+                        <div class="card-number">SCP-914</div>
+                        <div class="card-tag card-tag-safe">SAFE</div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">The Clockworks</h3>
+                        <p>A complex apparatus capable of refining, degrading, or altering objects placed inside.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span>Read File</span>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="btn-icon">
+                            <path d="M6 18l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2026 SCP DATABASE. All classified information. Level 4 clearance required.</p>
+            <div class="footer-links">
+                <a href="#">Security Notice</a>
+                <a href="#">Usage Guidelines</a>
+                <a href="#">FOIA Requests</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
