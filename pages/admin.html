@@ -490,7 +490,7 @@
             btn.textContent = 'Authenticating...';
             error.style.display = 'none';
 
-            fetch('/api/verify-password', {
+            fetch('https://scp-foundation-f5euz7c2o-dudepersonface.vercel.app/api/verify-password', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ password })
@@ -574,7 +574,7 @@
                 formData.append('image', selectedFile);
             }
 
-            fetch('/api/create-scp', {
+            fetch('https://scp-foundation-f5euz7c2o-dudepersonface.vercel.app/api/create-scp', {
                 method: 'POST',
                 body: formData
             })
